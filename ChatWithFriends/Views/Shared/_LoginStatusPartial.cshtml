@@ -1,0 +1,13 @@
+﻿<div style="display: flex; padding: 0;">
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div style="display: flex; width: 100%;">
+            <button class="dropdown-item" type="button" style=" text-align: center; padding: 0 5px 0 10px;">
+                <a href="#" class="btn btn-primary me-2" style="display: inline-block; width: 100%; text-align: center;">@User.Identity.Name</a>
+            </button>
+            <button class="dropdown-item" type="button" style=" text-align: center; padding: 0 10px 0 5px;">
+                @Html.ActionLink("登出", "SignOut", "Account", null, new { @class = "btn btn-danger", @style = "display: inline-block; width: 100%; text-align: center;" })
+            </button>
+        </div>
+    }
+</div>

@@ -1,0 +1,158 @@
+﻿body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+#BG {
+    height: 100vh;
+    width: 100%;
+    background-color: #E7FeBF;
+}
+
+#box {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 400px;
+    height: auto;
+    background-color: #E7FeBF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    border-radius: 10px;
+}
+
+.container {
+    margin: 0;
+    max-width: 100%;
+}
+
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+    .logo img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+    }
+
+    .logo:nth-child(1) {
+        animation: rotateLeft 3s linear;
+        animation-delay: -1.5s;
+    }
+
+@keyframes rotateLeft {
+    0%, 100% {
+        transform: rotateY(0deg);
+    }
+
+    50% {
+        transform: rotateY(360deg);
+    }
+}
+
+#content {
+    display: none;
+}
+
+.containerBox {
+    width: 100%;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card {
+    cursor: pointer;
+    transition: transform 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 300px;
+    text-decoration: none;
+    color: inherit;
+}
+
+    .card:hover {
+        transform: scale(1.05);
+        text-decoration: none;
+    }
+
+.rounded {
+    border-radius: 10px;
+}
+
+.card-body {
+    width: 100%;
+}
+
+.btnto {
+    display: block;
+    width: 100%;
+    margin-top: auto;
+    text-align: center;
+    position: relative;
+    border: none;
+    border-radius: 4px;
+    background-color: #16a085;
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: bold;
+    text-decoration: none;
+    text-transform: uppercase;
+    overflow: hidden;
+    transition-duration: 0.4s;
+    padding: 10px 0;
+    box-shadow: 0 5px 15px #193047;
+}
+
+    .btnto:hover {
+        background: #ffffff;
+        box-shadow: 0px 2px 10px 5px #1abc9c;
+        color: #000000;
+        text-decoration: none;
+    }
+
+    .btnto:after {
+        content: "";
+        display: block;
+        position: absolute;
+        background: #1abc9c;
+        padding-top: 300%;
+        padding-left: 350%;
+        margin-left: -20px !important;
+        margin-top: -120%;
+        opacity: 0;
+        transition: all 0.8s;
+    }
+
+    .btnto:active:after {
+        padding: 0;
+        margin: 0;
+        opacity: 1;
+        transition: 0s;
+    }

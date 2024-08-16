@@ -1,0 +1,539 @@
+﻿@model ChatWithFriends.ViewModels.SunriseTeaViewModel
+@{
+    ViewData["Title"] = "日出茶太";
+}
+@*厚茶拿鐵*@
+<div class="container">
+    <div class="row">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="card-title">厚茶拿鐵</h2>
+                            <div class="row">
+                                @foreach (var Item in Model.SunriseTeaThickTeaLatte)
+                                {
+                                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                                        <div class="card" onclick="showHiddenDiv('@Item.ID')">
+                                            <div class="card-body">
+                                                <h5 class="card-title">@Item.Name</h5>
+                                                <p class="card-text">價格: @Item.Money</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <form method="post" action="/DrinkHome/SunriseTea" onsubmit="return validateForm()">
+                                        <div class="hiddendiv" id="hiddenDiv_@Item.ID" style="display:none; border: 1px solid #ccc; padding: 10px; margin-top: 10px;">
+                                            <h3>飲料名稱: @Item.Name</h3>
+                                            <div>
+                                                <label for="cupCount">杯數:</label>
+                                                <input type="number" id="cupCount" name="cupCount" value="1" min="1" max="10" style="width: 50px; margin-right: 10px;">
+                                            </div>
+                                            <div>
+                                                <p for="Money2">價格:</p>
+                                                <input type="radio" name="Money" value="@Item.Money" checked /> @Item.Money
+                                            </div>
+
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="teaMaterialName">加料:</p>
+                                            @foreach (var item in Model.SunriseTeaMat)
+                                            {
+                                                <div>
+                                                    <input type="checkbox" name="teaMaterialName" value="@item.TeaMaterialName" /> @($"{item.TeaMaterialName} - ${item.Money}元")
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("ANiceholidayMat", "", new { @class = "text-danger" })
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="IceName">冰塊:</p>
+                                            @foreach (var item in Model.SunriseTeaIce)
+                                            {
+                                                <div>
+                                                    <input type="radio" name="IceName" value="@item.IceName" /> @item.IceName
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("IceName", "", new { @class = "text-danger" })
+
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="SugarName">甜度:</p>
+                                            @foreach (var item in Model.SunriseTeaSug)
+                                            {
+                                                <div>
+                                                    <input type="radio" name="SugarName" value="@item.SugarName" /> @item.SugarName
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("SugarName", "", new { @class = "text-danger" })
+                                            <input type="hidden" name="name" value="@Item.Name" />
+                                            <input type="hidden" name="Shop" value="日出茶太-厚茶拿鐵" />
+                                            <input type="hidden" name="OrderName" value="@User.Identity.Name" />
+                                            <input type="submit" value="提交" class="btn btn-primary" />
+                                            @Html.ValidationSummary()
+                                        </div>
+                                    </form>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*茶拿鐵*@
+<div class="container">
+    <div class="row">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="card-title">茶拿鐵</h2>
+                            <div class="row">
+                                @foreach (var Item in Model.SunriseTeaTeaLatte)
+                                {
+                                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                                        <div class="card" onclick="showHiddenDiv('@Item.ID')">
+                                            <div class="card-body">
+                                                <h5 class="card-title">@Item.Name</h5>
+                                                <p class="card-text">價格: @Item.Money</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <form method="post" action="/DrinkHome/SunriseTea" onsubmit="return validateForm()">
+                                        <div class="hiddendiv" id="hiddenDiv_@Item.ID" style="display:none; border: 1px solid #ccc; padding: 10px; margin-top: 10px;">
+                                            <h3>飲料名稱: @Item.Name</h3>
+                                            <div>
+                                                <label for="cupCount">杯數:</label>
+                                                <input type="number" id="cupCount" name="cupCount" value="1" min="1" max="10" style="width: 50px; margin-right: 10px;">
+                                            </div>
+                                            <div>
+                                                <p for="Money">價格:</p>
+                                                <input type="radio" name="Money" value="@Item.Money" checked /> @Item.Money
+                                            </div>
+
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="teaMaterialName">加料:</p>
+                                            @foreach (var item in Model.SunriseTeaMat)
+                                            {
+                                                <div>
+                                                    <input type="checkbox" name="teaMaterialName" value="@item.TeaMaterialName" /> @($"{item.TeaMaterialName} - ${item.Money}元")
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("ANiceholidayMat", "", new { @class = "text-danger" })
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="IceName">冰塊:</p>
+                                            @foreach (var item in Model.SunriseTeaIce)
+                                            {
+                                                <div>
+                                                    <input type="radio" name="IceName" value="@item.IceName" /> @item.IceName
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("IceName", "", new { @class = "text-danger" })
+
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="SugarName">甜度:</p>
+                                            @foreach (var item in Model.SunriseTeaSug)
+                                            {
+                                                <div>
+                                                    <input type="radio" name="SugarName" value="@item.SugarName" /> @item.SugarName
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("SugarName", "", new { @class = "text-danger" })
+                                            <input type="hidden" name="name" value="@Item.Name" />
+                                            <input type="hidden" name="Shop" value="日出茶太-茶拿鐵" />
+                                            <input type="hidden" name="OrderName" value="@User.Identity.Name" />
+                                            <input type="submit" value="提交" class="btn btn-primary" />
+                                            @Html.ValidationSummary()
+                                        </div>
+                                    </form>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*新鮮特調*@
+<div class="container">
+    <div class="row">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="card-title">新鮮特調</h2>
+                            <div class="row">
+                                @foreach (var Item in Model.SunriseTeaFresh)
+                                {
+                                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                                        <div class="card" onclick="showHiddenDiv('@Item.ID')">
+                                            <div class="card-body">
+                                                <h5 class="card-title">@Item.Name</h5>
+                                                <p class="card-text">價格: @Item.Money</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <form method="post" action="/DrinkHome/SunriseTea" onsubmit="return validateForm()">
+                                        <div class="hiddendiv" id="hiddenDiv_@Item.ID" style="display:none; border: 1px solid #ccc; padding: 10px; margin-top: 10px;">
+                                            <h3>飲料名稱: @Item.Name</h3>
+                                            <div>
+                                                <label for="cupCount">杯數:</label>
+                                                <input type="number" id="cupCount" name="cupCount" value="1" min="1" max="10" style="width: 50px; margin-right: 10px;">
+                                            </div>
+                                            <div>
+                                                <p for="Money">價格:</p>
+                                                <input type="radio" name="Money" value="@Item.Money" checked /> @Item.Money
+                                            </div>
+
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="teaMaterialName">加料:</p>
+                                            @foreach (var item in Model.SunriseTeaMat)
+                                            {
+                                                <div>
+                                                    <input type="checkbox" name="teaMaterialName" value="@item.TeaMaterialName" /> @($"{item.TeaMaterialName} - ${item.Money}元")
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("ANiceholidayMat", "", new { @class = "text-danger" })
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="IceName">冰塊:</p>
+                                            @foreach (var item in Model.SunriseTeaIce)
+                                            {
+                                                <div>
+                                                    <input type="radio" name="IceName" value="@item.IceName" /> @item.IceName
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("IceName", "", new { @class = "text-danger" })
+
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="SugarName">甜度:</p>
+                                            @foreach (var item in Model.SunriseTeaSug)
+                                            {
+                                                <div>
+                                                    <input type="radio" name="SugarName" value="@item.SugarName" /> @item.SugarName
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("SugarName", "", new { @class = "text-danger" })
+                                            <input type="hidden" name="name" value="@Item.Name" />
+                                            <input type="hidden" name="Shop" value="日出茶太-新鮮特調" />
+                                            <input type="hidden" name="OrderName" value="@User.Identity.Name" />
+                                            <input type="submit" value="提交" class="btn btn-primary" />
+                                            @Html.ValidationSummary()
+                                        </div>
+                                    </form>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*經典奶茶*@
+<div class="container">
+    <div class="row">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="card-title">經典奶茶</h2>
+                            <div class="row">
+                                @foreach (var Item in Model.SunriseTeaMilk)
+                                {
+                                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                                        <div class="card" onclick="showHiddenDiv('@Item.ID')">
+                                            <div class="card-body">
+                                                <h5 class="card-title">@Item.Name</h5>
+                                                <p class="card-text">價格: @Item.Money</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <form method="post" action="/DrinkHome/SunriseTea" onsubmit="return validateForm()">
+                                        <div class="hiddendiv" id="hiddenDiv_@Item.ID" style="display:none; border: 1px solid #ccc; padding: 10px; margin-top: 10px;">
+                                            <h3>飲料名稱: @Item.Name</h3>
+                                            <div>
+                                                <label for="cupCount">杯數:</label>
+                                                <input type="number" id="cupCount" name="cupCount" value="1" min="1" max="10" style="width: 50px; margin-right: 10px;">
+                                            </div>
+                                            <div>
+                                                <p for="Money">價格:</p>
+                                                <input type="radio" name="Money" value="@Item.Money" checked /> @Item.Money
+                                            </div>
+
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="teaMaterialName">加料:</p>
+                                            @foreach (var item in Model.SunriseTeaMat)
+                                            {
+                                                <div>
+                                                    <input type="checkbox" name="teaMaterialName" value="@item.TeaMaterialName" /> @($"{item.TeaMaterialName} - ${item.Money}元")
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("ANiceholidayMat", "", new { @class = "text-danger" })
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="IceName">冰塊:</p>
+                                            @foreach (var item in Model.SunriseTeaIce)
+                                            {
+                                                <div>
+                                                    <input type="radio" name="IceName" value="@item.IceName" /> @item.IceName
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("IceName", "", new { @class = "text-danger" })
+
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="SugarName">甜度:</p>
+                                            @foreach (var item in Model.SunriseTeaSug)
+                                            {
+                                                <div>
+                                                    <input type="radio" name="SugarName" value="@item.SugarName" /> @item.SugarName
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("SugarName", "", new { @class = "text-danger" })
+                                            <input type="hidden" name="name" value="@Item.Name" />
+                                            <input type="hidden" name="Shop" value="日出茶太-經典奶茶" />
+                                            <input type="hidden" name="OrderName" value="@User.Identity.Name" />
+                                            <input type="submit" value="提交" class="btn btn-primary" />
+                                            @Html.ValidationSummary()
+                                        </div>
+                                    </form>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*鮮活健康*@
+<div class="container">
+    <div class="row">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="card-title">鮮活健康</h2>
+                            <div class="row">
+                                @foreach (var Item in Model.SunriseTeaHealthy)
+                                {
+                                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                                        <div class="card" onclick="showHiddenDiv('@Item.ID')">
+                                            <div class="card-body">
+                                                <h5 class="card-title">@Item.Name</h5>
+                                                <p class="card-text">價格: @Item.Money</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <form method="post" action="/DrinkHome/SunriseTea" onsubmit="return validateForm()">
+                                        <div class="hiddendiv" id="hiddenDiv_@Item.ID" style="display:none; border: 1px solid #ccc; padding: 10px; margin-top: 10px;">
+                                            <h3>飲料名稱: @Item.Name</h3>
+                                            <div>
+                                                <label for="cupCount">杯數:</label>
+                                                <input type="number" id="cupCount" name="cupCount" value="1" min="1" max="10" style="width: 50px; margin-right: 10px;">
+                                            </div>
+                                            <div>
+                                                <p for="Money">價格:</p>
+                                                <input type="radio" name="Money" value="@Item.Money" checked /> @Item.Money
+                                            </div>
+
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="teaMaterialName">加料:</p>
+                                            @foreach (var item in Model.SunriseTeaMat)
+                                            {
+                                                <div>
+                                                    <input type="checkbox" name="teaMaterialName" value="@item.TeaMaterialName" /> @($"{item.TeaMaterialName} - ${item.Money}元")
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("ANiceholidayMat", "", new { @class = "text-danger" })
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="IceName">冰塊:</p>
+                                            @foreach (var item in Model.SunriseTeaIce)
+                                            {
+                                                <div>
+                                                    <input type="radio" name="IceName" value="@item.IceName" /> @item.IceName
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("IceName", "", new { @class = "text-danger" })
+
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="SugarName">甜度:</p>
+                                            @foreach (var item in Model.SunriseTeaSug)
+                                            {
+                                                <div>
+                                                    <input type="radio" name="SugarName" value="@item.SugarName" /> @item.SugarName
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("SugarName", "", new { @class = "text-danger" })
+                                            <input type="hidden" name="name" value="@Item.Name" />
+                                            <input type="hidden" name="Shop" value="日出茶太-鮮活健康" />
+                                            <input type="hidden" name="OrderName" value="@User.Identity.Name" />
+                                            <input type="submit" value="提交" class="btn btn-primary" />
+                                            @Html.ValidationSummary()
+                                        </div>
+                                    </form>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*日出茶廊*@
+<div class="container">
+    <div class="row">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="card-title">日出茶廊</h2>
+                            <div class="row">
+                                @foreach (var Item in Model.SunriseTeaCorridor)
+                                {
+                                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                                        <div class="card" onclick="showHiddenDiv('@Item.ID')">
+                                            <div class="card-body">
+                                                <h5 class="card-title">@Item.Name</h5>
+                                                <p class="card-text">價格: @Item.Money</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <form method="post" action="/DrinkHome/SunriseTea" onsubmit="return validateForm()">
+                                        <div class="hiddendiv" id="hiddenDiv_@Item.ID" style="display:none; border: 1px solid #ccc; padding: 10px; margin-top: 10px;">
+                                            <h3>飲料名稱: @Item.Name</h3>
+                                            <div>
+                                                <label for="cupCount">杯數:</label>
+                                                <input type="number" id="cupCount" name="cupCount" value="1" min="1" max="10" style="width: 50px; margin-right: 10px;">
+                                            </div>
+                                            <div>
+                                                <p for="Money">價格:</p>
+                                                <input type="radio" name="Money" value="@Item.Money" checked /> @Item.Money
+                                            </div>
+
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="teaMaterialName">加料:</p>
+                                            @foreach (var item in Model.SunriseTeaMat)
+                                            {
+                                                <div>
+                                                    <input type="checkbox" name="teaMaterialName" value="@item.TeaMaterialName" /> @($"{item.TeaMaterialName} - ${item.Money}元")
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("ANiceholidayMat", "", new { @class = "text-danger" })
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="IceName">冰塊:</p>
+                                            @foreach (var item in Model.SunriseTeaIce)
+                                            {
+                                                <div>
+                                                    <input type="radio" name="IceName" value="@item.IceName" /> @item.IceName
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("IceName", "", new { @class = "text-danger" })
+
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="SugarName">甜度:</p>
+                                            @foreach (var item in Model.SunriseTeaSug)
+                                            {
+                                                <div>
+                                                    <input type="radio" name="SugarName" value="@item.SugarName" /> @item.SugarName
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("SugarName", "", new { @class = "text-danger" })
+                                            <input type="hidden" name="name" value="@Item.Name" />
+                                            <input type="hidden" name="Shop" value="日出茶太-日出茶廊" />
+                                            <input type="hidden" name="OrderName" value="@User.Identity.Name" />
+                                            <input type="submit" value="提交" class="btn btn-primary" />
+                                            @Html.ValidationSummary()
+                                        </div>
+                                    </form>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <h2>加料</h2>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>配料名稱</th>
+                        <th>價格</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.SunriseTeaMat)
+                    {
+                        <tr>
+                            <td>@item.TeaMaterialName</td>
+                            <td>@item.Money</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-4">
+            <h2>冰塊</h2>
+            <table class="table table-bordered">
+                <tbody>
+                    @foreach (var item in Model.SunriseTeaIce)
+                    {
+                        <tr>
+                            <td>@item.IceName</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-4">
+            <h2>甜度</h2>
+            <table class="table table-bordered">
+                <tbody>
+                    @foreach (var item in Model.SunriseTeaSug)
+                    {
+                        <tr>
+                            <td>@item.SugarName</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="overlay" id="overlay" style="display: none;" onclick="closeHiddenDiv()"></div>
+

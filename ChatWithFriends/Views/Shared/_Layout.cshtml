@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - 不能訂</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link href="~/css/drink.css" rel="stylesheet" />
+    <script src="~/js/drinkmenu.js"></script>
+    @RenderSection("topCSS", required: false)
+    @RenderSection("topJS", required: false)
+    <style>
+        body {
+            padding-top: 56px;
+        }
+        .navbar {
+            background-color: #343a40;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            color: #ffc107 !important;
+        }
+
+        .nav-link {
+            color: #ffffff !important;
+        }
+
+            .nav-link:hover {
+                color: #ffc107 !important;
+            }
+
+        .navbar-toggler {
+            border: none;
+        }
+
+        .navbar-toggler-icon {
+            background-image: url('data:image/svg+xml;charset=utf8,%3Csvg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath stroke="rgba(255, 193, 7, 1)" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="M4 7h22M4 15h22M4 23h22"/%3E%3C/svg%3E');
+        }
+
+        .navbar-nav {
+            display: flex;
+            align-items: center;
+        }
+
+            .navbar-nav.ml-auto {
+                margin-left: auto;
+            }
+
+        .dropdown-menu {
+            background-color: #343a40;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            z-index: 1000;
+            min-width: 200px;
+        }
+
+        .dropdown-item {
+            color: #343a40 !important;
+        }
+
+            .dropdown-item:hover {
+                color: #ffc107 !important;
+                background-color: #343a40;
+            }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg fixed-top pt-6">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="DrinkHome" asp-action="DrinkAll">不能訂</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="DrinkHome" asp-action="Record">點餐紀錄</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="DrinkHome" asp-action="DrinkAll">點餐</a>
+                        </li>
+                    </ul>
+                    <div class="ml-auto">
+                        <partial name="_LoginStatusPartial" />
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    @RenderBody()
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+    @RenderSection("endCSS", required: false)
+    @RenderSection("endJS", required: false)
+</body>
+</html>

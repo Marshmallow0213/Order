@@ -1,0 +1,243 @@
+﻿@{
+    ViewData["Title"] = "DrinkAll";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link href="~/css/drinklogof.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div id="BG">
+        <div id="box">
+            <div class="logo-container">
+                <div class="logo">
+                    <img src="~/img/logo.jpg" />
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+
+    <div id="content" class="containerBox">
+        <h1 style="margin-top: 56px;">今天想喝什麼?</h1>
+    <div class="row card-container">
+            <div class="col-md-3 col-sm-6 mb-4">
+                <a href="@Url.Action("ANiceholiday", "DrinkHome")" class="card h-100">
+                    <div class="h-100 d-flex justify-content-center align-items-center">
+                        <img src="~/img/aniceholiday.png" class="card-img-top rounded" alt="...">
+                    </div>
+                    <div class="btnto">
+                        一沐日
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-4">
+                <a href="@Url.Action("Richtea", "DrinkHome")" class="card h-100">
+                    <div class="h-100 d-flex justify-content-center align-items-center">
+                        <img src="~/img/richtea.jpg" class="card-img-top rounded" alt="...">
+                    </div>
+                    <div class="btnto">
+                        厚味查理
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-4">
+                <a href="@Url.Action("BallsTea", "DrinkHome")" class="card h-100">
+                    <div class="h-100 d-flex justify-content-center align-items-center">
+                        <img src="~/img/ballstea.png" class="card-img-top rounded" alt="...">
+                    </div>
+                    <div class="btnto">
+                        波仕
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-4">
+                <a href="@Url.Action("FiftyLan", "DrinkHome")" class="card h-100">
+                    <div class="h-100 d-flex justify-content-center align-items-center">
+                        <img src="~/img/fiftylan.png" class="card-img-top rounded" alt="...">
+                    </div>
+                    <div class="btnto">
+                        50嵐
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-4">
+                <a href="@Url.Action("LIKEFANG", "DrinkHome")" class="card h-100">
+                    <div class="h-100 d-flex justify-content-center align-items-center">
+                        <img src="~/img/likefang.png" class="card-img-top rounded" alt="...">
+                    </div>
+                    <div class="btnto">
+                        利客坊
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-4">
+                <a href="@Url.Action("COMEBUY", "DrinkHome")" class="card h-100">
+                    <div class="h-100 d-flex justify-content-center align-items-center">
+                        <img src="~/img/comebuy.png" class="card-img-top rounded" alt="...">
+                    </div>
+                    <div class="btnto">
+                        COMEBUY
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-4">
+                <a href="@Url.Action("JinchaWu", "DrinkHome")" class="card h-100">
+                    <div class="h-100 d-flex justify-content-center align-items-center">
+                        <img src="~/img/jinchawu.jpg" class="card-img-top rounded" alt="...">
+                    </div>
+                    <div class="btnto">
+                        金茶伍
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-4">
+                <a href="@Url.Action("MakeYourOwnBlackTeaMilk", "DrinkHome")" class="card h-100">
+                    <div class="h-100 d-flex justify-content-center align-items-center">
+                        <img src="~/img/makeyourownblackteamilk.png" class="card-img-top rounded" alt="...">
+                    </div>
+                    <div class="btnto">
+                        自己來紅茶鮮乳
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-4">
+                <a href="@Url.Action("WongKeeTeaHouse", "DrinkHome")" class="card h-100">
+                    <div class="h-100 d-flex justify-content-center align-items-center">
+                        <img src="~/img/wongkeeteahouse.jpg" class="card-img-top rounded" alt="...">
+                    </div>
+                    <div class="btnto">
+                        黃記茶莊
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-4">
+                <a href="@Url.Action("DedeTea", "DrinkHome")" class="card h-100">
+                    <div class="h-100 d-flex justify-content-center align-items-center">
+                        <img src="~/img/dedetea.jpg" class="card-img-top rounded" alt="...">
+                    </div>
+                    <div class="btnto">
+                        黛黛茶
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-4">
+                <a href="@Url.Action("CHAGE", "DrinkHome")" class="card h-100">
+                    <div class="h-100 d-flex justify-content-center align-items-center">
+                        <img src="~/img/chage.jpeg" class="card-img-top rounded" alt="...">
+                    </div>
+                    <div class="btnto">
+                        茶聚
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-4">
+                <a href="@Url.Action("DaMingJadeDew", "DrinkHome")" class="card h-100">
+                    <div class="h-100 d-flex justify-content-center align-items-center">
+                        <img src="~/img/damingjadedew.jpg" class="card-img-top rounded" alt="...">
+                    </div>
+                    <div class="btnto">
+                        大銘玉露青茶
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-4">
+                <a href="@Url.Action("ShangYulin", "DrinkHome")" class="card h-100">
+                    <div class="h-100 d-flex justify-content-center align-items-center">
+                        <img src="~/img/shangyulin.jpg" class="card-img-top rounded" alt="...">
+                    </div>
+                    <div class="btnto">
+                        上宇林
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-4">
+                <a href="@Url.Action("Wanbo", "DrinkHome")" class="card h-100">
+                    <div class="h-100 d-flex justify-content-center align-items-center">
+                        <img src="~/img/wanbo.jpg" class="card-img-top rounded" alt="...">
+                    </div>
+                    <div class="btnto">
+                        萬波
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-4">
+                <a href="@Url.Action("MrQueen", "DrinkHome")" class="card h-100">
+                    <div class="h-100 d-flex justify-content-center align-items-center">
+                        <img src="~/img/mrqueen.jpg" class="card-img-top rounded" alt="...">
+                    </div>
+                    <div class="btnto">
+                        皇后先生
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-4">
+                <a href="@Url.Action("RestingPavilion", "DrinkHome")" class="card h-100">
+                    <div class="h-100 d-flex justify-content-center align-items-center">
+                        <img src="~/img/restingpavilion.jpg" class="card-img-top rounded" alt="...">
+                    </div>
+                    <div class="btnto">
+                        歇腳亭
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-4">
+                <a href="@Url.Action("SunriseTea", "DrinkHome")" class="card h-100">
+                    <div class="h-100 d-flex justify-content-center align-items-center">
+                        <img src="~/img/sunrisetea.jpg" class="card-img-top rounded" alt="...">
+                    </div>
+                    <div class="btnto">
+                        日出茶太
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-4">
+                <a href="@Url.Action("Lai", "DrinkHome")" class="card h-100">
+                    <div class="h-100 d-flex justify-content-center align-items-center">
+                        <img src="~/img/lai.jpg" class="card-img-top rounded" alt="...">
+                    </div>
+                    <div class="btnto">
+                        老賴茶棧
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-4">
+                <a href="@Url.Action("WulinTea", "DrinkHome")" class="card h-100">
+                    <div class="h-100 d-flex justify-content-center align-items-center">
+                        <img src="~/img/wulintea.png" class="card-img-top rounded" alt="...">
+                    </div>
+                    <div class="btnto">
+                        武林茶
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-4">
+                <a href="@Url.Action("TeasOriginal", "DrinkHome")" class="card h-100">
+                    <div class="h-100 d-flex justify-content-center align-items-center">
+                        <img src="~/img/teasoriginal.jpg" class="card-img-top rounded" alt="...">
+                    </div>
+                    <div class="btnto">
+                        TEA'S原味
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-4">
+                <a href="@Url.Action("Asher", "DrinkHome")" class="card h-100">
+                    <div class="h-100 d-flex justify-content-center align-items-center">
+                        <img src="~/img/asher.jpg" class="card-img-top rounded" alt="...">
+                    </div>
+                    <div class="btnto">
+                        阿舍烏龍茶
+                    </div>
+                </a>
+            </div>
+    </div>
+</div>
+    <script src="~/js/drinklogo.js"></script>
+</body>
+</html>

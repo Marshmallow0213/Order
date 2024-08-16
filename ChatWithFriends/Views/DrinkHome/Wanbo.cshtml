@@ -1,0 +1,642 @@
+﻿@model ChatWithFriends.ViewModels.WanboViewModel
+@{
+    ViewData["Title"] = "萬波";
+}
+@*品茗精選*@
+<div class="container">
+    <div class="row">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="card-title">品茗精選</h2>
+                            <div class="row">
+                                @foreach (var Item in Model.WanboFeatured)
+                                {
+                                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                                        <div class="card" onclick="showHiddenDiv('@Item.ID')">
+                                            <div class="card-body">
+                                                <h5 class="card-title">@Item.Name</h5>
+                                                <p class="card-text">小杯價格: @Item.Money1</p>
+                                                <p class="card-text">大杯價格: @Item.Money2</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <form method="post" action="/DrinkHome/Wanbo" onsubmit="return validateForm()">
+                                        <div class="hiddendiv" id="hiddenDiv_@Item.ID" style="display:none; border: 1px solid #ccc; padding: 10px; margin-top: 10px;">
+                                            <h3>飲料名稱: @Item.Name</h3>
+                                            <div>
+                                                <label for="cupCount">杯數:</label>
+                                                <input type="number" id="cupCount" name="cupCount" value="1" min="1" max="10" style="width: 50px; margin-right: 10px;">
+                                            </div>
+                                            <div>
+                                                <p for="Money1">小杯價格:</p>
+                                                <input type="radio" name="Money" value="@Item.Money1" /> @Item.Money1
+                                                <p for="Money2">大杯價格:</p>
+                                                <input type="radio" name="Money" value="@Item.Money2" checked /> @Item.Money2
+                                            </div>
+
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="teaMaterialName">加料:</p>
+                                            @foreach (var item in Model.WanboMat)
+                                            {
+                                                <div>
+                                                    <input type="checkbox" name="teaMaterialName" value="@item.TeaMaterialName" /> @($"{item.TeaMaterialName} - ${item.Money}元")
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("ANiceholidayMat", "", new { @class = "text-danger" })
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="IceName">冰塊:</p>
+                                            @foreach (var item in Model.WanboIce)
+                                            {
+                                                <div>
+                                                    <input type="radio" name="IceName" value="@item.IceName" /> @item.IceName
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("IceName", "", new { @class = "text-danger" })
+
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="SugarName">甜度:</p>
+                                            @foreach (var item in Model.WanboSug)
+                                            {
+                                                <div>
+                                                    <input type="radio" name="SugarName" value="@item.SugarName" /> @item.SugarName
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("SugarName", "", new { @class = "text-danger" })
+                                            <input type="hidden" name="name" value="@Item.Name" />
+                                            <input type="hidden" name="Shop" value="萬波-品茗精選" />
+                                            <input type="hidden" name="OrderName" value="@User.Identity.Name" />
+                                            <input type="submit" value="提交" class="btn btn-primary" />
+                                            @Html.ValidationSummary()
+                                        </div>
+                                    </form>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*手路調飲*@
+<div class="container">
+    <div class="row">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="card-title">手路調飲</h2>
+                            <div class="row">
+                                @foreach (var Item in Model.WanboHandPath)
+                                {
+                                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                                        <div class="card" onclick="showHiddenDiv('@Item.ID')">
+                                            <div class="card-body">
+                                                <h5 class="card-title">@Item.Name</h5>
+                                                <p class="card-text">小杯價格: @Item.Money1</p>
+                                                <p class="card-text">大杯價格: @Item.Money2</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <form method="post" action="/DrinkHome/Wanbo" onsubmit="return validateForm()">
+                                        <div class="hiddendiv" id="hiddenDiv_@Item.ID" style="display:none; border: 1px solid #ccc; padding: 10px; margin-top: 10px;">
+                                            <h3>飲料名稱: @Item.Name</h3>
+                                            <div>
+                                                <label for="cupCount">杯數:</label>
+                                                <input type="number" id="cupCount" name="cupCount" value="1" min="1" max="10" style="width: 50px; margin-right: 10px;">
+                                            </div>
+                                            <div>
+                                                <p for="Money1">小杯價格:</p>
+                                                <input type="radio" name="Money" value="@Item.Money1" /> @Item.Money1
+                                                <p for="Money2">大杯價格:</p>
+                                                <input type="radio" name="Money" value="@Item.Money2" checked /> @Item.Money2
+                                            </div>
+
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="teaMaterialName">加料:</p>
+                                            @foreach (var item in Model.WanboMat)
+                                            {
+                                                <div>
+                                                    <input type="checkbox" name="teaMaterialName" value="@item.TeaMaterialName" /> @($"{item.TeaMaterialName} - ${item.Money}元")
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("ANiceholidayMat", "", new { @class = "text-danger" })
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="IceName">冰塊:</p>
+                                            @foreach (var item in Model.WanboIce)
+                                            {
+                                                <div>
+                                                    <input type="radio" name="IceName" value="@item.IceName" /> @item.IceName
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("IceName", "", new { @class = "text-danger" })
+
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="SugarName">甜度:</p>
+                                            @foreach (var item in Model.WanboSug)
+                                            {
+                                                <div>
+                                                    <input type="radio" name="SugarName" value="@item.SugarName" /> @item.SugarName
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("SugarName", "", new { @class = "text-danger" })
+                                            <input type="hidden" name="name" value="@Item.Name" />
+                                            <input type="hidden" name="Shop" value="萬波-手路調飲" />
+                                            <input type="hidden" name="OrderName" value="@User.Identity.Name" />
+                                            <input type="submit" value="提交" class="btn btn-primary" />
+                                            @Html.ValidationSummary()
+                                        </div>
+                                    </form>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*醇濃奶香*@
+<div class="container">
+    <div class="row">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="card-title">醇濃奶香</h2>
+                            <div class="row">
+                                @foreach (var Item in Model.WanboMilk)
+                                {
+                                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                                        <div class="card" onclick="showHiddenDiv('@Item.ID')">
+                                            <div class="card-body">
+                                                <h5 class="card-title">@Item.Name</h5>
+                                                <p class="card-text">小杯價格: @Item.Money1</p>
+                                                <p class="card-text">大杯價格: @Item.Money2</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <form method="post" action="/DrinkHome/Wanbo" onsubmit="return validateForm()">
+                                        <div class="hiddendiv" id="hiddenDiv_@Item.ID" style="display:none; border: 1px solid #ccc; padding: 10px; margin-top: 10px;">
+                                            <h3>飲料名稱: @Item.Name</h3>
+                                            <div>
+                                                <label for="cupCount">杯數:</label>
+                                                <input type="number" id="cupCount" name="cupCount" value="1" min="1" max="10" style="width: 50px; margin-right: 10px;">
+                                            </div>
+                                            <div>
+                                                <p for="Money1">小杯價格:</p>
+                                                <input type="radio" name="Money" value="@Item.Money1" /> @Item.Money1
+                                                <p for="Money2">大杯價格:</p>
+                                                <input type="radio" name="Money" value="@Item.Money2" checked /> @Item.Money2
+                                            </div>
+
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="teaMaterialName">加料:</p>
+                                            @foreach (var item in Model.WanboMat)
+                                            {
+                                                <div>
+                                                    <input type="checkbox" name="teaMaterialName" value="@item.TeaMaterialName" /> @($"{item.TeaMaterialName} - ${item.Money}元")
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("ANiceholidayMat", "", new { @class = "text-danger" })
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="IceName">冰塊:</p>
+                                            @foreach (var item in Model.WanboIce)
+                                            {
+                                                <div>
+                                                    <input type="radio" name="IceName" value="@item.IceName" /> @item.IceName
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("IceName", "", new { @class = "text-danger" })
+
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="SugarName">甜度:</p>
+                                            @foreach (var item in Model.WanboSug)
+                                            {
+                                                <div>
+                                                    <input type="radio" name="SugarName" value="@item.SugarName" /> @item.SugarName
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("SugarName", "", new { @class = "text-danger" })
+                                            <input type="hidden" name="name" value="@Item.Name" />
+                                            <input type="hidden" name="Shop" value="萬波-醇濃奶香" />
+                                            <input type="hidden" name="OrderName" value="@User.Identity.Name" />
+                                            <input type="submit" value="提交" class="btn btn-primary" />
+                                            @Html.ValidationSummary()
+                                        </div>
+                                    </form>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*永良老頭家*@
+<div class="container">
+    <div class="row">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="card-title">永良老頭家</h2>
+                            <div class="row">
+                                @foreach (var Item in Model.WanboOld)
+                                {
+                                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                                        <div class="card" onclick="showHiddenDiv('@Item.ID')">
+                                            <div class="card-body">
+                                                <h5 class="card-title">@Item.Name</h5>
+                                                <p class="card-text">小杯價格: @Item.Money1</p>
+                                                <p class="card-text">大杯價格: @Item.Money2</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <form method="post" action="/DrinkHome/Wanbo" onsubmit="return validateForm()">
+                                        <div class="hiddendiv" id="hiddenDiv_@Item.ID" style="display:none; border: 1px solid #ccc; padding: 10px; margin-top: 10px;">
+                                            <h3>飲料名稱: @Item.Name</h3>
+                                            <div>
+                                                <label for="cupCount">杯數:</label>
+                                                <input type="number" id="cupCount" name="cupCount" value="1" min="1" max="10" style="width: 50px; margin-right: 10px;">
+                                            </div>
+                                            <div>
+                                                <p for="Money1">小杯價格:</p>
+                                                <input type="radio" name="Money" value="@Item.Money1" /> @Item.Money1
+                                                <p for="Money2">大杯價格:</p>
+                                                <input type="radio" name="Money" value="@Item.Money2" checked /> @Item.Money2
+                                            </div>
+
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="teaMaterialName">加料:</p>
+                                            @foreach (var item in Model.WanboMat)
+                                            {
+                                                <div>
+                                                    <input type="checkbox" name="teaMaterialName" value="@item.TeaMaterialName" /> @($"{item.TeaMaterialName} - ${item.Money}元")
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("ANiceholidayMat", "", new { @class = "text-danger" })
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="IceName">冰塊:</p>
+                                            @foreach (var item in Model.WanboIce)
+                                            {
+                                                <div>
+                                                    <input type="radio" name="IceName" value="@item.IceName" /> @item.IceName
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("IceName", "", new { @class = "text-danger" })
+
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="SugarName">甜度:</p>
+                                            @foreach (var item in Model.WanboSug)
+                                            {
+                                                <div>
+                                                    <input type="radio" name="SugarName" value="@item.SugarName" /> @item.SugarName
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("SugarName", "", new { @class = "text-danger" })
+                                            <input type="hidden" name="name" value="@Item.Name" />
+                                            <input type="hidden" name="Shop" value="萬波-永良老頭家" />
+                                            <input type="hidden" name="OrderName" value="@User.Identity.Name" />
+                                            <input type="submit" value="提交" class="btn btn-primary" />
+                                            @Html.ValidationSummary()
+                                        </div>
+                                    </form>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*鮮奶茶*@
+<div class="container">
+    <div class="row">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="card-title">鮮奶茶</h2>
+                            <div class="row">
+                                @foreach (var Item in Model.WanboMilKTea)
+                                {
+                                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                                        <div class="card" onclick="showHiddenDiv('@Item.ID')">
+                                            <div class="card-body">
+                                                <h5 class="card-title">@Item.Name</h5>
+                                                <p class="card-text">小杯價格: @Item.Money1</p>
+                                                <p class="card-text">大杯價格: @Item.Money2</p>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <form method="post" action="/DrinkHome/Wanbo" onsubmit="return validateForm()">
+                                        <div class="hiddendiv" id="hiddenDiv_@Item.ID" style="display:none; border: 1px solid #ccc; padding: 10px; margin-top: 10px;">
+                                            <h3>飲料名稱: @Item.Name</h3>
+                                            <div>
+                                                <label for="cupCount">杯數:</label>
+                                                <input type="number" id="cupCount" name="cupCount" value="1" min="1" max="10" style="width: 50px; margin-right: 10px;">
+                                            </div>
+                                            <div>
+                                                <p for="Money1">小杯價格:</p>
+                                                <input type="radio" name="Money" value="@Item.Money1" /> @Item.Money1
+                                                <p for="Money2">大杯價格:</p>
+                                                <input type="radio" name="Money" value="@Item.Money2" checked /> @Item.Money2
+                                            </div>
+
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="teaMaterialName">加料:</p>
+                                            @foreach (var item in Model.WanboMat)
+                                            {
+                                                <div>
+                                                    <input type="checkbox" name="teaMaterialName" value="@item.TeaMaterialName" /> @($"{item.TeaMaterialName} - ${item.Money}元")
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("ANiceholidayMat", "", new { @class = "text-danger" })
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="IceName">冰塊:</p>
+                                            @foreach (var item in Model.WanboIce)
+                                            {
+                                                <div>
+                                                    <input type="radio" name="IceName" value="@item.IceName" /> @item.IceName
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("IceName", "", new { @class = "text-danger" })
+
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="SugarName">甜度:</p>
+                                            @foreach (var item in Model.WanboSug)
+                                            {
+                                                <div>
+                                                    <input type="radio" name="SugarName" value="@item.SugarName" /> @item.SugarName
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("SugarName", "", new { @class = "text-danger" })
+                                            <input type="hidden" name="name" value="@Item.Name" />
+                                            <input type="hidden" name="Shop" value="萬波-鮮奶茶" />
+                                            <input type="hidden" name="OrderName" value="@User.Identity.Name" />
+                                            <input type="submit" value="提交" class="btn btn-primary" />
+                                            @Html.ValidationSummary()
+                                        </div>
+                                    </form>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*鮮萃果香*@
+<div class="container">
+    <div class="row">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="card-title">鮮萃果香</h2>
+                            <div class="row">
+                                @foreach (var Item in Model.WanboFruit)
+                                {
+                                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                                        <div class="card" onclick="showHiddenDiv('@Item.ID')">
+                                            <div class="card-body">
+                                                <h5 class="card-title">@Item.Name</h5>
+                                                <p class="card-text">小杯價格: @Item.Money1</p>
+                                                <p class="card-text">大杯價格: @Item.Money2</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <form method="post" action="/DrinkHome/Wanbo" onsubmit="return validateForm()">
+                                        <div class="hiddendiv" id="hiddenDiv_@Item.ID" style="display:none; border: 1px solid #ccc; padding: 10px; margin-top: 10px;">
+                                            <h3>飲料名稱: @Item.Name</h3>
+                                            <div>
+                                                <label for="cupCount">杯數:</label>
+                                                <input type="number" id="cupCount" name="cupCount" value="1" min="1" max="10" style="width: 50px; margin-right: 10px;">
+                                            </div>
+                                            <div>
+                                                <p for="Money1">小杯價格:</p>
+                                                <input type="radio" name="Money" value="@Item.Money1" /> @Item.Money1
+                                                <p for="Money2">大杯價格:</p>
+                                                <input type="radio" name="Money" value="@Item.Money2" checked /> @Item.Money2
+                                            </div>
+
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="teaMaterialName">加料:</p>
+                                            @foreach (var item in Model.WanboMat)
+                                            {
+                                                <div>
+                                                    <input type="checkbox" name="teaMaterialName" value="@item.TeaMaterialName" /> @($"{item.TeaMaterialName} - ${item.Money}元")
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("ANiceholidayMat", "", new { @class = "text-danger" })
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="IceName">冰塊:</p>
+                                            @foreach (var item in Model.WanboIce)
+                                            {
+                                                <div>
+                                                    <input type="radio" name="IceName" value="@item.IceName" /> @item.IceName
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("IceName", "", new { @class = "text-danger" })
+
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="SugarName">甜度:</p>
+                                            @foreach (var item in Model.WanboSug)
+                                            {
+                                                <div>
+                                                    <input type="radio" name="SugarName" value="@item.SugarName" /> @item.SugarName
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("SugarName", "", new { @class = "text-danger" })
+                                            <input type="hidden" name="name" value="@Item.Name" />
+                                            <input type="hidden" name="Shop" value="萬波-鮮萃果香" />
+                                            <input type="hidden" name="OrderName" value="@User.Identity.Name" />
+                                            <input type="submit" value="提交" class="btn btn-primary" />
+                                            @Html.ValidationSummary()
+                                        </div>
+                                    </form>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*冬季*@
+<div class="container">
+    <div class="row">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="card-title">冬季</h2>
+                            <div class="row">
+                                @foreach (var Item in Model.WanboWinter)
+                                {
+                                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                                        <div class="card" onclick="showHiddenDiv('@Item.ID')">
+                                            <div class="card-body">
+                                                <h5 class="card-title">@Item.Name</h5>
+                                                <p class="card-text">小杯價格: @Item.Money1</p>
+                                                <p class="card-text">大杯價格: @Item.Money2</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <form method="post" action="/DrinkHome/Wanbo" onsubmit="return validateForm()">
+                                        <div class="hiddendiv" id="hiddenDiv_@Item.ID" style="display:none; border: 1px solid #ccc; padding: 10px; margin-top: 10px;">
+                                            <h3>飲料名稱: @Item.Name</h3>
+                                            <div>
+                                                <label for="cupCount">杯數:</label>
+                                                <input type="number" id="cupCount" name="cupCount" value="1" min="1" max="10" style="width: 50px; margin-right: 10px;">
+                                            </div>
+                                            <div>
+                                                <p for="Money1">小杯價格:</p>
+                                                <input type="radio" name="Money" value="@Item.Money1" /> @Item.Money1
+                                                <p for="Money2">大杯價格:</p>
+                                                <input type="radio" name="Money" value="@Item.Money2" checked /> @Item.Money2
+                                            </div>
+
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="teaMaterialName">加料:</p>
+                                            @foreach (var item in Model.WanboMat)
+                                            {
+                                                <div>
+                                                    <input type="checkbox" name="teaMaterialName" value="@item.TeaMaterialName" /> @($"{item.TeaMaterialName} - ${item.Money}元")
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("ANiceholidayMat", "", new { @class = "text-danger" })
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="IceName">冰塊:</p>
+                                            @foreach (var item in Model.WanboIce)
+                                            {
+                                                <div>
+                                                    <input type="radio" name="IceName" value="@item.IceName" /> @item.IceName
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("IceName", "", new { @class = "text-danger" })
+
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="SugarName">甜度:</p>
+                                            @foreach (var item in Model.WanboSug)
+                                            {
+                                                <div>
+                                                    <input type="radio" name="SugarName" value="@item.SugarName" /> @item.SugarName
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("SugarName", "", new { @class = "text-danger" })
+                                            <input type="hidden" name="name" value="@Item.Name" />
+                                            <input type="hidden" name="Shop" value="萬波-冬季" />
+                                            <input type="hidden" name="OrderName" value="@User.Identity.Name" />
+                                            <input type="submit" value="提交" class="btn btn-primary" />
+                                            @Html.ValidationSummary()
+                                        </div>
+                                    </form>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <h2>加料</h2>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>配料名稱</th>
+                        <th>價格</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.WanboMat)
+                    {
+                        <tr>
+                            <td>@item.TeaMaterialName</td>
+                            <td>@item.Money</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-4">
+            <h2>冰塊</h2>
+            <table class="table table-bordered">
+                <tbody>
+                    @foreach (var item in Model.WanboIce)
+                    {
+                        <tr>
+                            <td>@item.IceName</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-4">
+            <h2>甜度</h2>
+            <table class="table table-bordered">
+                <tbody>
+                    @foreach (var item in Model.WanboSug)
+                    {
+                        <tr>
+                            <td>@item.SugarName</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="overlay" id="overlay" style="display: none;" onclick="closeHiddenDiv()"></div>
+
+

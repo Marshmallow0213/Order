@@ -1,0 +1,540 @@
+﻿@model ChatWithFriends.ViewModels.ShangYulinViewModel
+@{
+    ViewData["Title"] = "上宇林";
+}
+@*頂級茶道系列*@
+<div class="container">
+    <div class="row">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="card-title">頂級茶道系列</h2>
+                            <div class="row">
+                                @foreach (var Item in Model.ShangYulinTop)
+                                {
+                                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                                        <div class="card" onclick="showHiddenDiv('@Item.ID')">
+                                            <div class="card-body">
+                                                <h5 class="card-title">@Item.Name</h5>
+                                                <p class="card-text">價格: @Item.Money</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <form method="post" action="/DrinkHome/ShangYulin" onsubmit="return validateForm()">
+                                        <div class="hiddendiv" id="hiddenDiv_@Item.ID" style="display:none; border: 1px solid #ccc; padding: 10px; margin-top: 10px;">
+                                            <h3>飲料名稱: @Item.Name</h3>
+                                            <div>
+                                                <label for="cupCount">杯數:</label>
+                                                <input type="number" id="cupCount" name="cupCount" value="1" min="1" max="10" style="width: 50px; margin-right: 10px;">
+                                            </div>
+                                            <div>
+                                                <p for="Money">價格:</p>
+                                                <input type="radio" name="Money" value="@Item.Money" checked /> @Item.Money
+                                            </div>
+
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="teaMaterialName">加料:</p>
+                                            @foreach (var item in Model.ShangYulinMat)
+                                            {
+                                                <div>
+                                                    <input type="checkbox" name="teaMaterialName" value="@item.TeaMaterialName" /> @($"{item.TeaMaterialName} - ${item.Money}元")
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("ANiceholidayMat", "", new { @class = "text-danger" })
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="IceName">冰塊:</p>
+                                            @foreach (var item in Model.ShangYulinIce)
+                                            {
+                                                <div>
+                                                    <input type="radio" name="IceName" value="@item.IceName" /> @item.IceName
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("IceName", "", new { @class = "text-danger" })
+
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="SugarName">甜度:</p>
+                                            @foreach (var item in Model.ShangYulinSug)
+                                            {
+                                                <div>
+                                                    <input type="radio" name="SugarName" value="@item.SugarName" /> @item.SugarName
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("SugarName", "", new { @class = "text-danger" })
+                                            <input type="hidden" name="name" value="@Item.Name" />
+                                            <input type="hidden" name="Shop" value="上宇林-頂級茶道系列" />
+                                            <input type="hidden" name="OrderName" value="@User.Identity.Name" />
+                                            <input type="submit" value="提交" class="btn btn-primary" />
+                                            @Html.ValidationSummary()
+                                        </div>
+                                    </form>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*濃郁雪浮系列*@
+<div class="container">
+    <div class="row">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="card-title">濃郁雪浮系列</h2>
+                            <div class="row">
+                                @foreach (var Item in Model.ShangYulinRich)
+                                {
+                                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                                        <div class="card" onclick="showHiddenDiv('@Item.ID')">
+                                            <div class="card-body">
+                                                <h5 class="card-title">@Item.Name</h5>
+                                                <p class="card-text">價格: @Item.Money</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <form method="post" action="/DrinkHome/ShangYulin" onsubmit="return validateForm()">
+                                        <div class="hiddendiv" id="hiddenDiv_@Item.ID" style="display:none; border: 1px solid #ccc; padding: 10px; margin-top: 10px;">
+                                            <h3>飲料名稱: @Item.Name</h3>
+                                            <div>
+                                                <label for="cupCount">杯數:</label>
+                                                <input type="number" id="cupCount" name="cupCount" value="1" min="1" max="10" style="width: 50px; margin-right: 10px;">
+                                            </div>
+                                            <div>
+                                                <p for="Money">價格:</p>
+                                                <input type="radio" name="Money" value="@Item.Money" checked /> @Item.Money
+                                            </div>
+
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="teaMaterialName">加料:</p>
+                                            @foreach (var item in Model.ShangYulinMat)
+                                            {
+                                                <div>
+                                                    <input type="checkbox" name="teaMaterialName" value="@item.TeaMaterialName" /> @($"{item.TeaMaterialName} - ${item.Money}元")
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("ANiceholidayMat", "", new { @class = "text-danger" })
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="IceName">冰塊:</p>
+                                            @foreach (var item in Model.ShangYulinIce)
+                                            {
+                                                <div>
+                                                    <input type="radio" name="IceName" value="@item.IceName" /> @item.IceName
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("IceName", "", new { @class = "text-danger" })
+
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="SugarName">甜度:</p>
+                                            @foreach (var item in Model.ShangYulinSug)
+                                            {
+                                                <div>
+                                                    <input type="radio" name="SugarName" value="@item.SugarName" /> @item.SugarName
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("SugarName", "", new { @class = "text-danger" })
+                                            <input type="hidden" name="name" value="@Item.Name" />
+                                            <input type="hidden" name="Shop" value="上宇林-濃郁雪浮系列" />
+                                            <input type="hidden" name="OrderName" value="@User.Identity.Name" />
+                                            <input type="submit" value="提交" class="btn btn-primary" />
+                                            @Html.ValidationSummary()
+                                        </div>
+                                    </form>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*純天然鮮乳系列*@
+<div class="container">
+    <div class="row">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="card-title">純天然鮮乳系列</h2>
+                            <div class="row">
+                                @foreach (var Item in Model.ShangYulinMilk)
+                                {
+                                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                                        <div class="card" onclick="showHiddenDiv('@Item.ID')">
+                                            <div class="card-body">
+                                                <h5 class="card-title">@Item.Name</h5>
+                                                <p class="card-text">價格: @Item.Money</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <form method="post" action="/DrinkHome/ShangYulin" onsubmit="return validateForm()">
+                                        <div class="hiddendiv" id="hiddenDiv_@Item.ID" style="display:none; border: 1px solid #ccc; padding: 10px; margin-top: 10px;">
+                                            <h3>飲料名稱: @Item.Name</h3>
+                                            <div>
+                                                <label for="cupCount">杯數:</label>
+                                                <input type="number" id="cupCount" name="cupCount" value="1" min="1" max="10" style="width: 50px; margin-right: 10px;">
+                                            </div>
+                                            <div>
+                                                <p for="Money">價格:</p>
+                                                <input type="radio" name="Money" value="@Item.Money" checked /> @Item.Money
+                                            </div>
+
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="teaMaterialName">加料:</p>
+                                            @foreach (var item in Model.ShangYulinMat)
+                                            {
+                                                <div>
+                                                    <input type="checkbox" name="teaMaterialName" value="@item.TeaMaterialName" /> @($"{item.TeaMaterialName} - ${item.Money}元")
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("ANiceholidayMat", "", new { @class = "text-danger" })
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="IceName">冰塊:</p>
+                                            @foreach (var item in Model.ShangYulinIce)
+                                            {
+                                                <div>
+                                                    <input type="radio" name="IceName" value="@item.IceName" /> @item.IceName
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("IceName", "", new { @class = "text-danger" })
+
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="SugarName">甜度:</p>
+                                            @foreach (var item in Model.ShangYulinSug)
+                                            {
+                                                <div>
+                                                    <input type="radio" name="SugarName" value="@item.SugarName" /> @item.SugarName
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("SugarName", "", new { @class = "text-danger" })
+                                            <input type="hidden" name="name" value="@Item.Name" />
+                                            <input type="hidden" name="Shop" value="上宇林-純天然鮮乳系列" />
+                                            <input type="hidden" name="OrderName" value="@User.Identity.Name" />
+                                            <input type="submit" value="提交" class="btn btn-primary" />
+                                            @Html.ValidationSummary()
+                                        </div>
+                                    </form>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*口感鮮茶系列*@
+<div class="container">
+    <div class="row">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="card-title">口感鮮茶系列</h2>
+                            <div class="row">
+                                @foreach (var Item in Model.ShangYulinTea)
+                                {
+                                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                                        <div class="card" onclick="showHiddenDiv('@Item.ID')">
+                                            <div class="card-body">
+                                                <h5 class="card-title">@Item.Name</h5>
+                                                <p class="card-text">價格: @Item.Money</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <form method="post" action="/DrinkHome/ShangYulin" onsubmit="return validateForm()">
+                                        <div class="hiddendiv" id="hiddenDiv_@Item.ID" style="display:none; border: 1px solid #ccc; padding: 10px; margin-top: 10px;">
+                                            <h3>飲料名稱: @Item.Name</h3>
+                                            <div>
+                                                <label for="cupCount">杯數:</label>
+                                                <input type="number" id="cupCount" name="cupCount" value="1" min="1" max="10" style="width: 50px; margin-right: 10px;">
+                                            </div>
+                                            <div>
+                                                <p for="Money">價格:</p>
+                                                <input type="radio" name="Money" value="@Item.Money" checked /> @Item.Money
+                                            </div>
+
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="teaMaterialName">加料:</p>
+                                            @foreach (var item in Model.ShangYulinMat)
+                                            {
+                                                <div>
+                                                    <input type="checkbox" name="teaMaterialName" value="@item.TeaMaterialName" /> @($"{item.TeaMaterialName} - ${item.Money}元")
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("ANiceholidayMat", "", new { @class = "text-danger" })
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="IceName">冰塊:</p>
+                                            @foreach (var item in Model.ShangYulinIce)
+                                            {
+                                                <div>
+                                                    <input type="radio" name="IceName" value="@item.IceName" /> @item.IceName
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("IceName", "", new { @class = "text-danger" })
+
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="SugarName">甜度:</p>
+                                            @foreach (var item in Model.ShangYulinSug)
+                                            {
+                                                <div>
+                                                    <input type="radio" name="SugarName" value="@item.SugarName" /> @item.SugarName
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("SugarName", "", new { @class = "text-danger" })
+                                            <input type="hidden" name="name" value="@Item.Name" />
+                                            <input type="hidden" name="Shop" value="上宇林-口感鮮茶系列" />
+                                            <input type="hidden" name="OrderName" value="@User.Identity.Name" />
+                                            <input type="submit" value="提交" class="btn btn-primary" />
+                                            @Html.ValidationSummary()
+                                        </div>
+                                    </form>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*養生熱飲系列(冬季限定)*@
+<div class="container">
+    <div class="row">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="card-title">養生熱飲系列(冬季限定)</h2>
+                            <div class="row">
+                                @foreach (var Item in Model.ShangYulinHealth)
+                                {
+                                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                                        <div class="card" onclick="showHiddenDiv('@Item.ID')">
+                                            <div class="card-body">
+                                                <h5 class="card-title">@Item.Name</h5>
+                                                <p class="card-text">價格: @Item.Money</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <form method="post" action="/DrinkHome/ShangYulin" onsubmit="return validateForm()">
+                                        <div class="hiddendiv" id="hiddenDiv_@Item.ID" style="display:none; border: 1px solid #ccc; padding: 10px; margin-top: 10px;">
+                                            <h3>飲料名稱: @Item.Name</h3>
+                                            <div>
+                                                <label for="cupCount">杯數:</label>
+                                                <input type="number" id="cupCount" name="cupCount" value="1" min="1" max="10" style="width: 50px; margin-right: 10px;">
+                                            </div>
+                                            <div>
+                                                <p for="Money">價格:</p>
+                                                <input type="radio" name="Money" value="@Item.Money" checked /> @Item.Money
+                                            </div>
+
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="teaMaterialName">加料:</p>
+                                            @foreach (var item in Model.ShangYulinMat)
+                                            {
+                                                <div>
+                                                    <input type="checkbox" name="teaMaterialName" value="@item.TeaMaterialName" /> @($"{item.TeaMaterialName} - ${item.Money}元")
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("ANiceholidayMat", "", new { @class = "text-danger" })
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="IceName">冰塊:</p>
+                                            @foreach (var item in Model.ShangYulinIce)
+                                            {
+                                                <div>
+                                                    <input type="radio" name="IceName" value="@item.IceName" /> @item.IceName
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("IceName", "", new { @class = "text-danger" })
+
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="SugarName">甜度:</p>
+                                            @foreach (var item in Model.ShangYulinSug)
+                                            {
+                                                <div>
+                                                    <input type="radio" name="SugarName" value="@item.SugarName" /> @item.SugarName
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("SugarName", "", new { @class = "text-danger" })
+                                            <input type="hidden" name="name" value="@Item.Name" />
+                                            <input type="hidden" name="Shop" value="上宇林-養生熱飲系列(冬季限定)" />
+                                            <input type="hidden" name="OrderName" value="@User.Identity.Name" />
+                                            <input type="submit" value="提交" class="btn btn-primary" />
+                                            @Html.ValidationSummary()
+                                        </div>
+                                    </form>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*高山冷泡茶(限量供應)*@
+<div class="container">
+    <div class="row">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="card-title">高山冷泡茶(限量供應)</h2>
+                            <div class="row">
+                                @foreach (var Item in Model.ShangYulinMountain)
+                                {
+                                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                                        <div class="card" onclick="showHiddenDiv('@Item.ID')">
+                                            <div class="card-body">
+                                                <h5 class="card-title">@Item.Name</h5>
+                                                <p class="card-text">價格: @Item.Money</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <form method="post" action="/DrinkHome/ShangYulin" onsubmit="return validateForm()">
+                                        <div class="hiddendiv" id="hiddenDiv_@Item.ID" style="display:none; border: 1px solid #ccc; padding: 10px; margin-top: 10px;">
+                                            <h3>飲料名稱: @Item.Name</h3>
+                                            <div>
+                                                <label for="cupCount">杯數:</label>
+                                                <input type="number" id="cupCount" name="cupCount" value="1" min="1" max="10" style="width: 50px; margin-right: 10px;">
+                                            </div>
+                                            <div>
+                                                <p for="Money">價格:</p>
+                                                <input type="radio" name="Money" value="@Item.Money" checked /> @Item.Money
+                                            </div>
+
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="teaMaterialName">加料:</p>
+                                            @foreach (var item in Model.ShangYulinMat)
+                                            {
+                                                <div>
+                                                    <input type="checkbox" name="teaMaterialName" value="@item.TeaMaterialName" /> @($"{item.TeaMaterialName} - ${item.Money}元")
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("ANiceholidayMat", "", new { @class = "text-danger" })
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="IceName">冰塊:</p>
+                                            @foreach (var item in Model.ShangYulinIce)
+                                            {
+                                                <div>
+                                                    <input type="radio" name="IceName" value="@item.IceName" /> @item.IceName
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("IceName", "", new { @class = "text-danger" })
+
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="SugarName">甜度:</p>
+                                            @foreach (var item in Model.ShangYulinSug)
+                                            {
+                                                <div>
+                                                    <input type="radio" name="SugarName" value="@item.SugarName" /> @item.SugarName
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("SugarName", "", new { @class = "text-danger" })
+                                            <input type="hidden" name="name" value="@Item.Name" />
+                                            <input type="hidden" name="Shop" value="上宇林-高山冷泡茶(限量供應)" />
+                                            <input type="hidden" name="OrderName" value="@User.Identity.Name" />
+                                            <input type="submit" value="提交" class="btn btn-primary" />
+                                            @Html.ValidationSummary()
+                                        </div>
+                                    </form>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <h2>加料</h2>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>配料名稱</th>
+                        <th>價格</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.ShangYulinMat)
+                    {
+                        <tr>
+                            <td>@item.TeaMaterialName</td>
+                            <td>@item.Money</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-4">
+            <h2>冰塊</h2>
+            <table class="table table-bordered">
+                <tbody>
+                    @foreach (var item in Model.ShangYulinIce)
+                    {
+                        <tr>
+                            <td>@item.IceName</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-4">
+            <h2>甜度</h2>
+            <table class="table table-bordered">
+                <tbody>
+                    @foreach (var item in Model.ShangYulinSug)
+                    {
+                        <tr>
+                            <td>@item.SugarName</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="overlay" id="overlay" style="display: none;" onclick="closeHiddenDiv()"></div>
+

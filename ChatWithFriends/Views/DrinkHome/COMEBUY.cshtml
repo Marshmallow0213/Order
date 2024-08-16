@@ -1,0 +1,717 @@
+﻿@model ChatWithFriends.ViewModels.COMEBUYViewModel
+@{
+    ViewData["Title"] = "COMEBUY";
+}
+@*原葉鮮萃茶*@
+<div class="container">
+    <div class="row">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="card-title">原葉鮮萃茶</h2>
+                            <div class="row">
+                                @foreach (var Item in Model.COMEBUYOriginalLeaves)
+                                {
+                                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                                        <div class="card" onclick="showHiddenDiv('@Item.ID')">
+                                            <div class="card-body">
+                                                <h5 class="card-title">@Item.Name</h5>
+                                                <p class="card-text">大杯價格: @Item.Money2</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <form method="post" action="/DrinkHome/COMEBUY" onsubmit="return validateForm()">
+                                        <div class="hiddendiv" id="hiddenDiv_@Item.ID" style="display:none; border: 1px solid #ccc; padding: 10px; margin-top: 10px;">
+                                            <h3>飲料名稱: @Item.Name</h3>
+                                            <div>
+                                                <label for="cupCount">杯數:</label>
+                                                <input type="number" id="cupCount" name="cupCount" value="1" min="1" max="10" style="width: 50px; margin-right: 10px;">
+                                            </div>
+                                            <div>
+                                                <p for="Money2">大杯價格:</p>
+                                                <input type="radio" name="Money" value="@Item.Money2" checked /> @Item.Money2
+                                            </div>
+
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="teaMaterialName">加料:</p>
+                                            @foreach (var item in Model.COMEBUYMat)
+                                            {
+                                                <div>
+                                                    <input type="checkbox" name="teaMaterialName" value="@item.TeaMaterialName" /> @($"{item.TeaMaterialName} - ${item.Money}元")
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("ANiceholidayMat", "", new { @class = "text-danger" })
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="IceName">冰塊:</p>
+                                            @foreach (var item in Model.COMEBUYIce)
+                                            {
+                                                <div>
+                                                    <input type="radio" name="IceName" value="@item.IceName" /> @item.IceName
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("IceName", "", new { @class = "text-danger" })
+
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="SugarName">甜度:</p>
+                                            @foreach (var item in Model.COMEBUYSug)
+                                            {
+                                                <div>
+                                                    <input type="radio" name="SugarName" value="@item.SugarName" /> @item.SugarName
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("SugarName", "", new { @class = "text-danger" })
+                                            <input type="hidden" name="name" value="@Item.Name" />
+                                            <input type="hidden" name="Shop" value="COMEBUY-原葉鮮萃茶" />
+                                            <input type="hidden" name="OrderName" value="@User.Identity.Name" />
+                                            <input type="submit" value="提交" class="btn btn-primary" />
+                                            @Html.ValidationSummary()
+                                        </div>
+                                    </form>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*鮮萃茶拿鐵*@
+<div class="container">
+    <div class="row">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="card-title">鮮萃茶拿鐵</h2>
+                            <div class="row">
+                                @foreach (var Item in Model.COMEBUYFreshTeaLatte)
+                                {
+                                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                                        <div class="card" onclick="showHiddenDiv('@Item.ID')">
+                                            <div class="card-body">
+                                                <h5 class="card-title">@Item.Name</h5>
+                                                <p class="card-text">小杯價格: @Item.Money1</p>
+                                                <p class="card-text">大杯價格: @Item.Money2</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <form method="post" action="/DrinkHome/COMEBUY" onsubmit="return validateForm()">
+                                        <div class="hiddendiv" id="hiddenDiv_@Item.ID" style="display:none; border: 1px solid #ccc; padding: 10px; margin-top: 10px;">
+                                            <h3>飲料名稱: @Item.Name</h3>
+                                            <div>
+                                                <label for="cupCount">杯數:</label>
+                                                <input type="number" id="cupCount" name="cupCount" value="1" min="1" max="10" style="width: 50px; margin-right: 10px;">
+                                            </div>
+                                            <div>
+                                                <p for="Money1">小杯價格:</p>
+                                                <input type="radio" name="Money" value="@Item.Money1" /> @Item.Money1
+                                                <p for="Money2">大杯價格:</p>
+                                                <input type="radio" name="Money" value="@Item.Money2" checked /> @Item.Money2
+                                            </div>
+
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="teaMaterialName">加料:</p>
+                                            @foreach (var item in Model.COMEBUYMat)
+                                            {
+                                                <div>
+                                                    <input type="checkbox" name="teaMaterialName" value="@item.TeaMaterialName" /> @($"{item.TeaMaterialName} - ${item.Money}元")
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("ANiceholidayMat", "", new { @class = "text-danger" })
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="IceName">冰塊:</p>
+                                            @foreach (var item in Model.COMEBUYIce)
+                                            {
+                                                <div>
+                                                    <input type="radio" name="IceName" value="@item.IceName" /> @item.IceName
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("IceName", "", new { @class = "text-danger" })
+
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="SugarName">甜度:</p>
+                                            @foreach (var item in Model.COMEBUYSug)
+                                            {
+                                                <div>
+                                                    <input type="radio" name="SugarName" value="@item.SugarName" /> @item.SugarName
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("SugarName", "", new { @class = "text-danger" })
+                                            <input type="hidden" name="name" value="@Item.Name" />
+                                            <input type="hidden" name="Shop" value="COMEBUY-鮮萃茶拿鐵" />
+                                            <input type="hidden" name="OrderName" value="@User.Identity.Name" />
+                                            <input type="submit" value="提交" class="btn btn-primary" />
+                                            @Html.ValidationSummary()
+                                        </div>
+                                    </form>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*鮮調果茶*@
+<div class="container">
+    <div class="row">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="card-title">鮮調果茶</h2>
+                            <div class="row">
+                                @foreach (var Item in Model.COMEBUYFreshFruitTea)
+                                {
+                                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                                        <div class="card" onclick="showHiddenDiv('@Item.ID')">
+                                            <div class="card-body">
+                                                <h5 class="card-title">@Item.Name</h5>
+                                                <p class="card-text">小杯價格: @Item.Money1</p>
+                                                <p class="card-text">大杯價格: @Item.Money2</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <form method="post" action="/DrinkHome/COMEBUY" onsubmit="return validateForm()">
+                                        <div class="hiddendiv" id="hiddenDiv_@Item.ID" style="display:none; border: 1px solid #ccc; padding: 10px; margin-top: 10px;">
+                                            <h3>飲料名稱: @Item.Name</h3>
+                                            <div>
+                                                <label for="cupCount">杯數:</label>
+                                                <input type="number" id="cupCount" name="cupCount" value="1" min="1" max="10" style="width: 50px; margin-right: 10px;">
+                                            </div>
+                                            <div>
+                                                <p for="Money1">小杯價格:</p>
+                                                <input type="radio" name="Money" value="@Item.Money1" /> @Item.Money1
+                                                <p for="Money2">大杯價格:</p>
+                                                <input type="radio" name="Money" value="@Item.Money2" checked /> @Item.Money2
+                                            </div>
+
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="teaMaterialName">加料:</p>
+                                            @foreach (var item in Model.COMEBUYMat)
+                                            {
+                                                <div>
+                                                    <input type="checkbox" name="teaMaterialName" value="@item.TeaMaterialName" /> @($"{item.TeaMaterialName} - ${item.Money}元")
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("ANiceholidayMat", "", new { @class = "text-danger" })
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="IceName">冰塊:</p>
+                                            @foreach (var item in Model.COMEBUYIce)
+                                            {
+                                                <div>
+                                                    <input type="radio" name="IceName" value="@item.IceName" /> @item.IceName
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("IceName", "", new { @class = "text-danger" })
+
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="SugarName">甜度:</p>
+                                            @foreach (var item in Model.COMEBUYSug)
+                                            {
+                                                <div>
+                                                    <input type="radio" name="SugarName" value="@item.SugarName" /> @item.SugarName
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("SugarName", "", new { @class = "text-danger" })
+                                            <input type="hidden" name="name" value="@Item.Name" />
+                                            <input type="hidden" name="Shop" value="COMEBUY-鮮調果茶" />
+                                            <input type="hidden" name="OrderName" value="@User.Identity.Name" />
+                                            <input type="submit" value="提交" class="btn btn-primary" />
+                                            @Html.ValidationSummary()
+                                        </div>
+                                    </form>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*果然系列*@
+<div class="container">
+    <div class="row">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="card-title">果然系列</h2>
+                            <div class="row">
+                                @foreach (var Item in Model.COMEBUYReally)
+                                {
+                                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                                        <div class="card" onclick="showHiddenDiv('@Item.ID')">
+                                            <div class="card-body">
+                                                <h5 class="card-title">@Item.Name</h5>
+                                                <p class="card-text">小杯價格: @Item.Money1</p>
+                                                <p class="card-text">大杯價格: @Item.Money2</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <form method="post" action="/DrinkHome/COMEBUY" onsubmit="return validateForm()">
+                                        <div class="hiddendiv" id="hiddenDiv_@Item.ID" style="display:none; border: 1px solid #ccc; padding: 10px; margin-top: 10px;">
+                                            <h3>飲料名稱: @Item.Name</h3>
+                                            <div>
+                                                <label for="cupCount">杯數:</label>
+                                                <input type="number" id="cupCount" name="cupCount" value="1" min="1" max="10" style="width: 50px; margin-right: 10px;">
+                                            </div>
+                                            <div>
+                                                <p for="Money1">小杯價格:</p>
+                                                <input type="radio" name="Money" value="@Item.Money1" /> @Item.Money1
+                                                <p for="Money2">大杯價格:</p>
+                                                <input type="radio" name="Money" value="@Item.Money2" checked /> @Item.Money2
+                                            </div>
+
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="teaMaterialName">加料:</p>
+                                            @foreach (var item in Model.COMEBUYMat)
+                                            {
+                                                <div>
+                                                    <input type="checkbox" name="teaMaterialName" value="@item.TeaMaterialName" /> @($"{item.TeaMaterialName} - ${item.Money}元")
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("ANiceholidayMat", "", new { @class = "text-danger" })
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="IceName">冰塊:</p>
+                                            @foreach (var item in Model.COMEBUYIce)
+                                            {
+                                                <div>
+                                                    <input type="radio" name="IceName" value="@item.IceName" /> @item.IceName
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("IceName", "", new { @class = "text-danger" })
+
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="SugarName">甜度:</p>
+                                            @foreach (var item in Model.COMEBUYSug)
+                                            {
+                                                <div>
+                                                    <input type="radio" name="SugarName" value="@item.SugarName" /> @item.SugarName
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("SugarName", "", new { @class = "text-danger" })
+                                            <input type="hidden" name="name" value="@Item.Name" />
+                                            <input type="hidden" name="Shop" value="COMEBUY-果然系列" />
+                                            <input type="hidden" name="OrderName" value="@User.Identity.Name" />
+                                            <input type="submit" value="提交" class="btn btn-primary" />
+                                            @Html.ValidationSummary()
+                                        </div>
+                                    </form>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*夏季限定*@
+<div class="container">
+    <div class="row">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="card-title">夏季限定</h2>
+                            <div class="row">
+                                @foreach (var Item in Model.COMEBUYSummerOnly)
+                                {
+                                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                                        <div class="card" onclick="showHiddenDiv('@Item.ID')">
+                                            <div class="card-body">
+                                                <h5 class="card-title">@Item.Name</h5>
+                                                <p class="card-text">大杯價格: @Item.Money2</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <form method="post" action="/DrinkHome/COMEBUY" onsubmit="return validateForm()">
+                                        <div class="hiddendiv" id="hiddenDiv_@Item.ID" style="display:none; border: 1px solid #ccc; padding: 10px; margin-top: 10px;">
+                                            <h3>飲料名稱: @Item.Name</h3>
+                                            <div>
+                                                <label for="cupCount">杯數:</label>
+                                                <input type="number" id="cupCount" name="cupCount" value="1" min="1" max="10" style="width: 50px; margin-right: 10px;">
+                                            </div>
+                                            <div>
+                                                
+                                                <p for="Money2">大杯價格:</p>
+                                                <input type="radio" name="Money" value="@Item.Money2" checked /> @Item.Money2
+                                            </div>
+
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="teaMaterialName">加料:</p>
+                                            @foreach (var item in Model.COMEBUYMat)
+                                            {
+                                                <div>
+                                                    <input type="checkbox" name="teaMaterialName" value="@item.TeaMaterialName" /> @($"{item.TeaMaterialName} - ${item.Money}元")
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("ANiceholidayMat", "", new { @class = "text-danger" })
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="IceName">冰塊:</p>
+                                            @foreach (var item in Model.COMEBUYIce)
+                                            {
+                                                <div>
+                                                    <input type="radio" name="IceName" value="@item.IceName" /> @item.IceName
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("IceName", "", new { @class = "text-danger" })
+
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="SugarName">甜度:</p>
+                                            @foreach (var item in Model.COMEBUYSug)
+                                            {
+                                                <div>
+                                                    <input type="radio" name="SugarName" value="@item.SugarName" /> @item.SugarName
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("SugarName", "", new { @class = "text-danger" })
+                                            <input type="hidden" name="name" value="@Item.Name" />
+                                            <input type="hidden" name="Shop" value="COMEBUY-夏季限定" />
+                                            <input type="hidden" name="OrderName" value="@User.Identity.Name" />
+                                            <input type="submit" value="提交" class="btn btn-primary" />
+                                            @Html.ValidationSummary()
+                                        </div>
+                                    </form>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*奶茶/可可*@
+<div class="container">
+    <div class="row">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="card-title">奶茶/可可</h2>
+                            <div class="row">
+                                @foreach (var Item in Model.COMEBUYMilkTeaCocoa)
+                                {
+                                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                                        <div class="card" onclick="showHiddenDiv('@Item.ID')">
+                                            <div class="card-body">
+                                                <h5 class="card-title">@Item.Name</h5>
+                                                <p class="card-text">小杯價格: @Item.Money1</p>
+                                                <p class="card-text">大杯價格: @Item.Money2</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <form method="post" action="/DrinkHome/COMEBUY" onsubmit="return validateForm()">
+                                        <div class="hiddendiv" id="hiddenDiv_@Item.ID" style="display:none; border: 1px solid #ccc; padding: 10px; margin-top: 10px;">
+                                            <h3>飲料名稱: @Item.Name</h3>
+                                            <div>
+                                                <label for="cupCount">杯數:</label>
+                                                <input type="number" id="cupCount" name="cupCount" value="1" min="1" max="10" style="width: 50px; margin-right: 10px;">
+                                            </div>
+                                            <div>
+                                                <p for="Money1">小杯價格:</p>
+                                                <input type="radio" name="Money" value="@Item.Money1" /> @Item.Money1
+                                                <p for="Money2">大杯價格:</p>
+                                                <input type="radio" name="Money" value="@Item.Money2" checked /> @Item.Money2
+                                            </div>
+
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="teaMaterialName">加料:</p>
+                                            @foreach (var item in Model.COMEBUYMat)
+                                            {
+                                                <div>
+                                                    <input type="checkbox" name="teaMaterialName" value="@item.TeaMaterialName" /> @($"{item.TeaMaterialName} - ${item.Money}元")
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("ANiceholidayMat", "", new { @class = "text-danger" })
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="IceName">冰塊:</p>
+                                            @foreach (var item in Model.COMEBUYIce)
+                                            {
+                                                <div>
+                                                    <input type="radio" name="IceName" value="@item.IceName" /> @item.IceName
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("IceName", "", new { @class = "text-danger" })
+
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="SugarName">甜度:</p>
+                                            @foreach (var item in Model.COMEBUYSug)
+                                            {
+                                                <div>
+                                                    <input type="radio" name="SugarName" value="@item.SugarName" /> @item.SugarName
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("SugarName", "", new { @class = "text-danger" })
+                                            <input type="hidden" name="name" value="@Item.Name" />
+                                            <input type="hidden" name="Shop" value="COMEBUY-奶茶/可可" />
+                                            <input type="hidden" name="OrderName" value="@User.Identity.Name" />
+                                            <input type="submit" value="提交" class="btn btn-primary" />
+                                            @Html.ValidationSummary()
+                                        </div>
+                                    </form>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*門市限定*@
+<div class="container">
+    <div class="row">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="card-title">門市限定</h2>
+                            <div class="row">
+                                @foreach (var Item in Model.COMEBUYSpecialCoffee)
+                                {
+                                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                                        <div class="card" onclick="showHiddenDiv('@Item.ID')">
+                                            <div class="card-body">
+                                                <h5 class="card-title">@Item.Name</h5>
+                                                <p class="card-text">小杯價格: @Item.Money1</p>
+                                                <p class="card-text">大杯價格: @Item.Money2</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <form method="post" action="/DrinkHome/COMEBUY" onsubmit="return validateForm()">
+                                        <div class="hiddendiv" id="hiddenDiv_@Item.ID" style="display:none; border: 1px solid #ccc; padding: 10px; margin-top: 10px;">
+                                            <h3>飲料名稱: @Item.Name</h3>
+                                            <div>
+                                                <label for="cupCount">杯數:</label>
+                                                <input type="number" id="cupCount" name="cupCount" value="1" min="1" max="10" style="width: 50px; margin-right: 10px;">
+                                            </div>
+                                            <div>
+                                                <p for="Money1">小杯價格:</p>
+                                                <input type="radio" name="Money" value="@Item.Money1" /> @Item.Money1
+                                                <p for="Money2">大杯價格:</p>
+                                                <input type="radio" name="Money" value="@Item.Money2" checked /> @Item.Money2
+                                            </div>
+
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="teaMaterialName">加料:</p>
+                                            @foreach (var item in Model.COMEBUYMat)
+                                            {
+                                                <div>
+                                                    <input type="checkbox" name="teaMaterialName" value="@item.TeaMaterialName" /> @($"{item.TeaMaterialName} - ${item.Money}元")
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("ANiceholidayMat", "", new { @class = "text-danger" })
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="IceName">冰塊:</p>
+                                            @foreach (var item in Model.COMEBUYIce)
+                                            {
+                                                <div>
+                                                    <input type="radio" name="IceName" value="@item.IceName" /> @item.IceName
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("IceName", "", new { @class = "text-danger" })
+
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="SugarName">甜度:</p>
+                                            @foreach (var item in Model.COMEBUYSug)
+                                            {
+                                                <div>
+                                                    <input type="radio" name="SugarName" value="@item.SugarName" /> @item.SugarName
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("SugarName", "", new { @class = "text-danger" })
+                                            <input type="hidden" name="name" value="@Item.Name" />
+                                            <input type="hidden" name="Shop" value="COMEBUY-門市限定" />
+                                            <input type="hidden" name="OrderName" value="@User.Identity.Name" />
+                                            <input type="submit" value="提交" class="btn btn-primary" />
+                                            @Html.ValidationSummary()
+                                        </div>
+                                    </form>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*冬季限定*@
+<div class="container">
+    <div class="row">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="card-title">冬季限定</h2>
+                            <div class="row">
+                                @foreach (var Item in Model.COMEBUYWinterOnly)
+                                {
+                                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                                        <div class="card" onclick="showHiddenDiv('@Item.ID')">
+                                            <div class="card-body">
+                                                <h5 class="card-title">@Item.Name</h5>
+                                                <p class="card-text">小杯價格: @Item.Money1</p>
+                                                <p class="card-text">大杯價格: @Item.Money2</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <form method="post" action="/DrinkHome/COMEBUY" onsubmit="return validateForm()">
+                                        <div class="hiddendiv" id="hiddenDiv_@Item.ID" style="display:none; border: 1px solid #ccc; padding: 10px; margin-top: 10px;">
+                                            <h3>飲料名稱: @Item.Name</h3>
+                                            <div>
+                                                <label for="cupCount">杯數:</label>
+                                                <input type="number" id="cupCount" name="cupCount" value="1" min="1" max="10" style="width: 50px; margin-right: 10px;">
+                                            </div>
+                                            <div>
+                                                <p for="Money1">小杯價格:</p>
+                                                <input type="radio" name="Money" value="@Item.Money1" /> @Item.Money1
+                                                <p for="Money2">大杯價格:</p>
+                                                <input type="radio" name="Money" value="@Item.Money2" checked /> @Item.Money2
+                                            </div>
+
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="teaMaterialName">加料:</p>
+                                            @foreach (var item in Model.COMEBUYMat)
+                                            {
+                                                <div>
+                                                    <input type="checkbox" name="teaMaterialName" value="@item.TeaMaterialName" /> @($"{item.TeaMaterialName} - ${item.Money}元")
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("ANiceholidayMat", "", new { @class = "text-danger" })
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="IceName">冰塊:</p>
+                                            @foreach (var item in Model.COMEBUYIce)
+                                            {
+                                                <div>
+                                                    <input type="radio" name="IceName" value="@item.IceName" /> @item.IceName
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("IceName", "", new { @class = "text-danger" })
+
+                                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+                                            <p for="SugarName">甜度:</p>
+                                            @foreach (var item in Model.COMEBUYSug)
+                                            {
+                                                <div>
+                                                    <input type="radio" name="SugarName" value="@item.SugarName" /> @item.SugarName
+                                                </div>
+                                            }
+                                            @Html.ValidationMessage("SugarName", "", new { @class = "text-danger" })
+                                            <input type="hidden" name="name" value="@Item.Name" />
+                                            <input type="hidden" name="Shop" value="COMEBUY-冬季限定" />
+                                            <input type="hidden" name="OrderName" value="@User.Identity.Name" />
+                                            <input type="submit" value="提交" class="btn btn-primary" />
+                                            @Html.ValidationSummary()
+                                        </div>
+                                    </form>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <h2>加料</h2>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>配料名稱</th>
+                        <th>價格</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.COMEBUYMat)
+                    {
+                        <tr>
+                            <td>@item.TeaMaterialName</td>
+                            <td>@item.Money</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-4">
+            <h2>冰塊</h2>
+            <table class="table table-bordered">
+                <tbody>
+                    @foreach (var item in Model.COMEBUYIce)
+                    {
+                        <tr>
+                            <td>@item.IceName</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-4">
+            <h2>甜度</h2>
+            <table class="table table-bordered">
+                <tbody>
+                    @foreach (var item in Model.COMEBUYSug)
+                    {
+                        <tr>
+                            <td>@item.SugarName</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="overlay" id="overlay" style="display: none;" onclick="closeHiddenDiv()"></div>
+
